@@ -1,0 +1,254 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Curso Agentes de IA</title>
+<meta name="color-scheme" content="light dark">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css" media="(prefers-color-scheme: dark)">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css" media="(prefers-color-scheme: light)">
+<style>
+:root{
+  --bg:#fbfbf9;--fg:#1f2430;--muted:#5b6475;--card:#ffffff;--line:#e2e4ea;--accent:#2f6fd6;--accent-fg:#fff;
+  --code:#f3f4f7;--ok:#1f8a4c;--warn:#b25e00;--tip:#2f6fd6;--danger:#b3261e;
+  --fs:18px;--w:760px;
+}
+:root[data-theme="dark"]{--bg:#14161b;--fg:#e8eaf0;--muted:#a1a9ba;--card:#1b1e25;--line:#2c313c;--accent:#7aa7ff;--accent-fg:#0b1020;--code:#0f1115;--ok:#5dd28b;--warn:#f0a85a;--tip:#7aa7ff;--danger:#ff8a80}
+:root[data-theme="calm"]{--bg:#f1ece2;--fg:#3b3a36;--muted:#6d6a60;--card:#f7f3ea;--line:#ddd5c4;--accent:#4d7a6a;--accent-fg:#fff;--code:#ebe5d8;--ok:#3f7d57;--warn:#9a6a2a;--tip:#4d7a6a;--danger:#9a3b34}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]):not([data-theme="calm"]){--bg:#14161b;--fg:#e8eaf0;--muted:#a1a9ba;--card:#1b1e25;--line:#2c313c;--accent:#7aa7ff;--accent-fg:#0b1020;--code:#0f1115;--ok:#5dd28b;--warn:#f0a85a;--tip:#7aa7ff;--danger:#ff8a80}}
+*{box-sizing:border-box}
+html{font-size:var(--fs);-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;line-height:1.7}
+body.no-motion *{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+a{color:var(--accent)}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+header{position:sticky;top:0;z-index:20;background:var(--card);border-bottom:1px solid var(--line);display:flex;gap:.5rem;align-items:center;padding:.5rem max(1rem,env(safe-area-inset-left));}
+header h1{font-size:1rem;margin:0;flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+button,select,input[type=search]{font:inherit;color:var(--fg);background:var(--card);border:1px solid var(--line);border-radius:10px;padding:.35rem .7rem;min-height:44px;min-width:44px;cursor:pointer}
+button:hover{border-color:var(--accent)}
+button.primary{background:var(--accent);color:var(--accent-fg);border-color:var(--accent)}
+.layout{display:grid;grid-template-columns:300px 1fr;min-height:calc(100vh - 60px)}
+nav#menu{border-right:1px solid var(--line);padding:1rem;overflow:auto;max-height:calc(100vh - 60px);position:sticky;top:60px;background:var(--card)}
+nav#menu input{width:100%;margin-bottom:.8rem;cursor:text}
+nav#menu ol{list-style:none;margin:0;padding:0}
+nav#menu li a{display:flex;gap:.5rem;align-items:flex-start;padding:.55rem .6rem;border-radius:10px;text-decoration:none;color:var(--fg);font-size:.9rem;line-height:1.35}
+nav#menu li a:hover{background:var(--code)}
+nav#menu li a[aria-current=page]{background:var(--accent);color:var(--accent-fg)}
+nav#menu .done::before{content:"✔";color:var(--ok)}
+nav#menu a[aria-current=page].done::before{color:var(--accent-fg)}
+nav#menu .todo::before{content:"○";color:var(--muted)}
+nav#menu a[aria-current=page].todo::before{color:var(--accent-fg)}
+.prog{font-size:.85rem;color:var(--muted);margin:.2rem 0 .8rem}
+.bar{height:8px;background:var(--code);border-radius:99px;overflow:hidden;margin-top:.3rem}
+.bar i{display:block;height:100%;background:var(--ok);width:0}
+main{padding:1.5rem max(1rem,env(safe-area-inset-right)) 4rem;min-width:0}
+article{max-width:var(--w);margin:0 auto}
+article h1{font-size:1.9rem;line-height:1.25;margin-top:0}
+article h2{margin-top:2.2rem;padding-top:.8rem;border-top:1px solid var(--line);font-size:1.4rem}
+article h3{font-size:1.15rem;margin-top:1.6rem}
+article table{border-collapse:collapse;width:100%;display:block;overflow-x:auto;font-size:.9rem}
+article th,article td{border:1px solid var(--line);padding:.45rem .65rem;text-align:left;vertical-align:top}
+article th{background:var(--code)}
+article code{background:var(--code);padding:.1em .35em;border-radius:6px;font-size:.88em;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+article pre{position:relative;background:var(--code);border:1px solid var(--line);border-radius:12px;padding:1rem;overflow-x:auto;font-size:.82rem;line-height:1.55}
+article pre code{background:none;padding:0;font-size:inherit}
+.copy{position:absolute;top:.4rem;right:.4rem;min-height:36px;min-width:36px;font-size:.75rem;opacity:.85}
+blockquote{margin:1rem 0;padding:.7rem 1rem;border-left:5px solid var(--tip);background:var(--card);border-radius:0 10px 10px 0}
+blockquote p{margin:.3rem 0}
+blockquote.warn{border-color:var(--warn)}
+details{border:1px solid var(--line);border-radius:12px;padding:.6rem 1rem;margin:.8rem 0;background:var(--card)}
+details summary{cursor:pointer;font-weight:600;min-height:32px;display:flex;align-items:center}
+details[open] summary{margin-bottom:.4rem}
+.mermaid{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:1rem;overflow-x:auto;text-align:center}
+.pager{display:flex;gap:.6rem;justify-content:space-between;margin-top:3rem;flex-wrap:wrap}
+.done-box{margin-top:2.5rem;padding:1rem;border:2px dashed var(--line);border-radius:12px}
+.done-box label{display:flex;gap:.7rem;align-items:center;cursor:pointer;font-weight:600}
+.done-box input{width:26px;height:26px}
+#settings{position:fixed;right:1rem;top:64px;z-index:30;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:1rem;width:min(320px,calc(100vw - 2rem));box-shadow:0 8px 30px rgba(0,0,0,.18)}
+#settings[hidden]{display:none}
+#settings label{display:block;margin:.7rem 0 .2rem;font-size:.85rem;color:var(--muted)}
+#settings select,#settings input[type=range]{width:100%}
+#settings .row{display:flex;gap:.6rem;align-items:center;margin-top:.8rem;font-size:.9rem}
+body.focus nav#menu{display:none}
+body.focus .layout{grid-template-columns:1fr}
+#menubtn{display:none}
+@media (max-width:860px){
+  .layout{grid-template-columns:1fr}
+  nav#menu{position:fixed;left:0;top:60px;bottom:0;width:min(88vw,340px);z-index:25;transform:translateX(-105%);transition:transform .2s;max-height:none}
+  body.menu-open nav#menu{transform:none;box-shadow:0 0 40px rgba(0,0,0,.35)}
+  #menubtn{display:inline-flex;align-items:center;justify-content:center}
+  article h1{font-size:1.55rem}
+  html{font-size:calc(var(--fs) - 1px)}
+}
+@media print{header,nav#menu,.pager,.done-box,.copy{display:none!important}.layout{display:block}}
+</style>
+</head>
+<body>
+<header>
+  <button id="menubtn" aria-label="Abrir menu de lições">☰</button>
+  <h1 id="ttl">Curso Agentes de IA</h1>
+  <button id="focusbtn" aria-label="Alternar modo foco" title="Modo foco">◧</button>
+  <button id="setbtn" aria-label="Ajustes de leitura" aria-expanded="false" title="Ajustes">⚙️</button>
+</header>
+
+<div id="settings" hidden role="dialog" aria-label="Ajustes de leitura">
+  <strong>Ajustes de conforto</strong>
+  <label for="theme">Tema</label>
+  <select id="theme"><option value="auto">Automático</option><option value="light">Claro</option><option value="dark">Escuro</option><option value="calm">Calmo (cores suaves)</option></select>
+  <label for="fs">Tamanho da letra</label>
+  <input type="range" id="fs" min="15" max="26" step="1">
+  <label for="w">Largura do texto</label>
+  <input type="range" id="w" min="560" max="1100" step="20">
+  <div class="row"><input type="checkbox" id="motion" style="width:22px;height:22px"><label for="motion" style="margin:0;color:inherit">Reduzir animações</label></div>
+  <div class="row"><button id="reset">Restaurar padrão</button></div>
+</div>
+
+<div class="layout">
+  <nav id="menu" aria-label="Lições">
+    <input type="search" id="q" placeholder="🔍 Buscar nas lições" aria-label="Buscar nas lições">
+    <div class="prog" id="prog"></div>
+    <ol id="list"></ol>
+  </nav>
+  <main><article id="art" tabindex="-1"></article></main>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/marked/12.0.2/marked.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/10.9.1/mermaid.min.js"></script>
+<script>
+const LESSONS = __DATA__;
+const $ = s => document.querySelector(s);
+const store = {
+  get(k, d){ try{ const v = localStorage.getItem(k); return v === null ? d : JSON.parse(v) }catch(e){ return d } },
+  set(k, v){ try{ localStorage.setItem(k, JSON.stringify(v)) }catch(e){} }
+};
+let done = store.get('done', {});
+let current = 0;
+
+/* ---------- settings ---------- */
+const DEF = {theme:'auto', fs:18, w:760, motion:false};
+let S = Object.assign({}, DEF, store.get('settings', {}));
+function applySettings(){
+  const r = document.documentElement;
+  if (S.theme === 'auto') r.removeAttribute('data-theme'); else r.setAttribute('data-theme', S.theme);
+  r.style.setProperty('--fs', S.fs + 'px');
+  r.style.setProperty('--w', S.w + 'px');
+  document.body.classList.toggle('no-motion', !!S.motion);
+  $('#theme').value = S.theme; $('#fs').value = S.fs; $('#w').value = S.w; $('#motion').checked = !!S.motion;
+  store.set('settings', S);
+  if (window.mermaid) renderMermaidTheme();
+}
+$('#theme').onchange = e => { S.theme = e.target.value; applySettings(); render(current, true) };
+$('#fs').oninput = e => { S.fs = +e.target.value; applySettings() };
+$('#w').oninput = e => { S.w = +e.target.value; applySettings() };
+$('#motion').onchange = e => { S.motion = e.target.checked; applySettings() };
+$('#reset').onclick = () => { S = Object.assign({}, DEF); applySettings(); render(current, true) };
+$('#setbtn').onclick = () => { const s = $('#settings'); s.hidden = !s.hidden; $('#setbtn').setAttribute('aria-expanded', String(!s.hidden)) };
+$('#focusbtn').onclick = () => document.body.classList.toggle('focus');
+$('#menubtn').onclick = () => document.body.classList.toggle('menu-open');
+
+/* ---------- mermaid ---------- */
+function isDark(){
+  const t = document.documentElement.getAttribute('data-theme');
+  return t === 'dark' || (!t && matchMedia('(prefers-color-scheme: dark)').matches);
+}
+function renderMermaidTheme(){
+  mermaid.initialize({startOnLoad:false, theme: isDark() ? 'dark' : 'default', securityLevel:'strict', flowchart:{useMaxWidth:true}});
+}
+
+/* ---------- menu ---------- */
+function buildMenu(filter){
+  const ol = $('#list'); ol.innerHTML = '';
+  const f = (filter || '').trim().toLowerCase();
+  LESSONS.forEach((l, i) => {
+    if (f && !(l.title.toLowerCase().includes(f) || l.md.toLowerCase().includes(f))) return;
+    const li = document.createElement('li');
+    const a = document.createElement('a');
+    a.href = '#/' + l.id;
+    a.className = done[l.id] ? 'done' : 'todo';
+    if (i === current) a.setAttribute('aria-current', 'page');
+    const span = document.createElement('span'); span.textContent = l.title;
+    a.appendChild(span); li.appendChild(a); ol.appendChild(li);
+  });
+  const n = LESSONS.filter(l => done[l.id]).length;
+  $('#prog').innerHTML = '';
+  $('#prog').append(`${n} de ${LESSONS.length} lições concluídas`);
+  const bar = document.createElement('div'); bar.className = 'bar';
+  bar.innerHTML = '<i style="width:' + Math.round(100 * n / LESSONS.length) + '%"></i>';
+  $('#prog').appendChild(bar);
+}
+$('#q').oninput = e => buildMenu(e.target.value);
+
+/* ---------- render ---------- */
+function decorate(art){
+  art.querySelectorAll('blockquote').forEach(b => {
+    const t = b.textContent;
+    if (/Armadilha|⚠/.test(t.slice(0, 20))) b.classList.add('warn');
+  });
+  art.querySelectorAll('pre > code').forEach(code => {
+    const pre = code.parentElement;
+    if (code.className.includes('language-mermaid')) {
+      const div = document.createElement('div'); div.className = 'mermaid'; div.textContent = code.textContent;
+      pre.replaceWith(div); return;
+    }
+    if (window.hljs) { try { hljs.highlightElement(code) } catch(e){} }
+    const b = document.createElement('button'); b.className = 'copy'; b.textContent = 'Copiar'; b.setAttribute('aria-label', 'Copiar código');
+    b.onclick = async () => {
+      try { await navigator.clipboard.writeText(code.textContent); b.textContent = 'Copiado ✔' } catch(e){ b.textContent = 'Erro' }
+      setTimeout(() => b.textContent = 'Copiar', 1500);
+    };
+    pre.appendChild(b);
+  });
+  art.querySelectorAll('a[href^="http"]').forEach(a => { a.target = '_blank'; a.rel = 'noopener noreferrer' });
+}
+function render(i, keepScroll){
+  current = i;
+  const l = LESSONS[i];
+  const art = $('#art');
+  const y = window.scrollY;
+  art.innerHTML = window.marked ? marked.parse(l.md) : '<pre>' + l.md.replace(/</g, '&lt;') + '</pre>';
+  decorate(art);
+
+  const box = document.createElement('div'); box.className = 'done-box';
+  const lab = document.createElement('label');
+  const cb = document.createElement('input'); cb.type = 'checkbox'; cb.checked = !!done[l.id];
+  cb.onchange = () => { done[l.id] = cb.checked; if (!cb.checked) delete done[l.id]; store.set('done', done); buildMenu($('#q').value) };
+  lab.append(cb, ' Concluída');
+  box.appendChild(lab); art.appendChild(box);
+
+  const pager = document.createElement('div'); pager.className = 'pager';
+  const prev = LESSONS[i - 1], next = LESSONS[i + 1];
+  const mk = (txt, l2) => { const a = document.createElement('a'); a.href = '#/' + l2.id; a.textContent = txt; a.style.cssText = 'text-decoration:none'; const b = document.createElement('button'); b.textContent = txt; a.textContent = ''; a.appendChild(b); return a };
+  pager.append(prev ? mk('← ' + prev.title, prev) : document.createElement('span'), next ? mk(next.title + ' →', next) : document.createElement('span'));
+  art.appendChild(pager);
+
+  $('#ttl').textContent = l.title;
+  document.title = l.title + ' · Curso Agentes de IA';
+  buildMenu($('#q').value);
+  document.body.classList.remove('menu-open');
+  if (window.mermaid) {
+    renderMermaidTheme();
+    mermaid.run({querySelector: '.mermaid'}).catch(() => {});
+  }
+  if (keepScroll) window.scrollTo(0, y); else { window.scrollTo(0, 0); art.focus({preventScroll:true}) }
+  store.set('last', l.id);
+}
+function route(){
+  const id = location.hash.replace(/^#\//, '') || store.get('last', LESSONS[0].id);
+  let i = LESSONS.findIndex(l => l.id === id);
+  if (i < 0) i = 0;
+  render(i);
+}
+window.addEventListener('hashchange', route);
+document.addEventListener('keydown', e => {
+  if (e.target.matches('input,select,textarea')) return;
+  if (e.key === 'ArrowRight' && LESSONS[current + 1]) location.hash = '#/' + LESSONS[current + 1].id;
+  if (e.key === 'ArrowLeft' && LESSONS[current - 1]) location.hash = '#/' + LESSONS[current - 1].id;
+  if (e.key === 'Escape') { $('#settings').hidden = true; document.body.classList.remove('menu-open') }
+});
+applySettings();
+route();
+</script>
+</body>
+</html>

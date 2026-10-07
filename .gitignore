@@ -16,5 +16,6 @@ notes/
 CLAUDE.md
 .claude/
 
-# Course (private study material)
-course/
+
+# Course build output
+course/dist/
