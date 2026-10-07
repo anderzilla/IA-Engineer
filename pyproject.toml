@@ -1,0 +1,36 @@
+[project]
+name = "rn-pr-review-agent"
+version = "0.1.0"
+description = "AI agent that reviews React Native/Expo pull requests with human-in-the-loop approval"
+requires-python = ">=3.12"
+dependencies = [
+    "langchain>=1.4.3",
+    "langchain-anthropic>=1.7.5",
+    "pydantic>=2.13.5",
+    "pydantic-settings>=2.15.0",
+]
+
+[project.scripts]
+rn-pr-review-agent = "rn_pr_review_agent:main"
+
+[build-system]
+requires = ["uv_build>=0.12.17,<0.13.0"]
+build-backend = "uv_build"
+
+[dependency-groups]
+dev = [
+    "pytest>=9.1.1",
+    "pytest-asyncio>=1.4.0",
+    "ruff>=0.16.10",
+]
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "ASYNC"]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]
